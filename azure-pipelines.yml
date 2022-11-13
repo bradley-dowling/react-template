@@ -26,3 +26,12 @@ steps:
 - script: |
     npm test -- --watchAll=false || exit 1
   displayName: 'unit test'
+
+- script: |
+    npm run build
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'build'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+  displayName: 'npm run build' 
