@@ -10,10 +10,21 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: NodeTool@0
+  inputs:
+    versionSource: 'spec'
+    versionSpec: 
+    checkLatest: true
+  displayName: 'Install Node.js'
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    npm install
+  displayName: 'npm install'
+
+- script: |
+    npx eslint --max-warnings=0 src || exit 1
+  displayName: 'lint code'
+
+- script: |
+    npm test -- --watchAll=false || exit 1
+  displayName: 'unit test'
