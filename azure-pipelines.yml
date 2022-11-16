@@ -41,7 +41,8 @@ jobs:
 
 - job:
   displayName: 'Jenkins kickoff'
-  pool: server
+  pool:
+    vmImage: ubuntu-latest
   steps:
 
   - task: JenkinsQueueJob@2
