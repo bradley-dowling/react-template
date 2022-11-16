@@ -48,6 +48,6 @@ jobs:
     inputs:
       connectionType: 'connectedServiceName'
       serviceConnection: 'Jenkins'
-      method: 'POST'
+      method: 'GET'
       urlSuffix: '/job/pipeline-testing/build?token=jenkins-pipeline-testing'
       waitForCompletion: 'false'
