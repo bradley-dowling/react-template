@@ -50,4 +50,16 @@ jobs:
       method: 'GET'
       urlSuffix: 'job/pipeline-testing/build?token=jenkins-pipeline-testing'
       waitForCompletion: 'false'
-  
+
+- job:
+  displayName: 'Jenkins queue'
+  pool:
+    vmImage: ubuntu-latest
+  steps:
+  - task: JenkinsQueueJob@2
+    inputs:
+      serverEndpoint: 'Verified-Jenkins'
+      jobName: 'pipeline-testing'
+      captureConsole: true
+      capturePipeline: true
+      isParameterizedJob: false
