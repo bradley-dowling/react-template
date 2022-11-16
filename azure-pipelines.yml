@@ -8,6 +8,7 @@ trigger:
 
 jobs:
 - job:
+  displayName: 'npm test'
   pool:
     vmImage: ubuntu-latest
 
@@ -37,3 +38,15 @@ jobs:
       ArtifactName: 'drop'
       publishLocation: 'Container'
     displayName: 'npm run build'
+
+- job:
+  displayName: 'Jenkins kickoff'
+  pool: server
+  steps:
+
+  - task: InvokeRESTAPI@1
+    inputs:
+      connectionType: 'connectedServiceName'
+      method: 'GET'
+      urlSuffix: 'http://ec2-35-92-254-43.us-west-2.compute.amazonaws.com:8080//job/pipeline-testing/build?token=jenkins-pipeline-testing'
+      waitForCompletion: 'false'
