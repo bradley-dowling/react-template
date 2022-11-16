@@ -44,10 +44,10 @@ jobs:
   pool: server
   steps:
 
-  - task: InvokeRESTAPI@1
+  - task: JenkinsQueueJob@2
     inputs:
-      connectionType: 'connectedServiceName'
-      serviceConnection: 'Jenkins'
-      method: 'GET'
-      urlSuffix: '/job/pipeline-testing/build?token=jenkins-pipeline-testing'
-      waitForCompletion: 'false'
+      serverEndpoint: 'Verified-Jenkins'
+      jobName: 'pipeline-testing'
+      captureConsole: true
+      capturePipeline: true
+      isParameterizedJob: false
