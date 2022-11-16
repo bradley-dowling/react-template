@@ -8,7 +8,8 @@ trigger:
 
 jobs:
 - job:
-  pool: server
+  pool:
+    vmImage: ubuntu-latest
 
   steps:
   - task: NodeTool@0
