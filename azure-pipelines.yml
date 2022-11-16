@@ -47,6 +47,7 @@ jobs:
   - task: InvokeRESTAPI@1
     inputs:
       connectionType: 'connectedServiceName'
-      method: 'GET'
-      urlSuffix: 'http://ec2-35-92-254-43.us-west-2.compute.amazonaws.com:8080//job/pipeline-testing/build?token=jenkins-pipeline-testing'
+      serviceConnection: 'Jenkins'
+      method: 'POST'
+      urlSuffix: '/job/pipeline-testing/build?token=jenkins-pipeline-testing'
       waitForCompletion: 'false'
