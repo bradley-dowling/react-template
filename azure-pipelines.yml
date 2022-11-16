@@ -6,39 +6,33 @@
 trigger:
 - master
 
-pool:
-  vmImage: ubuntu-latest
+jobs:
+- job:
+  pool: server
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '18.12.1'
-  displayName: 'Install Node.js'
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.12.1'
+    displayName: 'Install Node.js'
 
-- script: |
-    npm install
-  displayName: 'npm install'
+  - script: |
+      npm install
+    displayName: 'npm install'
 
-- script: |
-    npx eslint --max-warnings=0 src || exit 1
-  displayName: 'lint code'
+  - script: |
+      npx eslint --max-warnings=0 src || exit 1
+    displayName: 'lint code'
 
-- script: |
-    npm test -- --watchAll=false || exit 1
-  displayName: 'unit test'
+  - script: |
+      npm test -- --watchAll=false || exit 1
+    displayName: 'unit test'
 
-- script: |
-    npm run build
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: 'build'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-  displayName: 'npm run build'
-
-- task: InvokeRESTAPI@1
-  inputs:
-    connectionType: 'connectedServiceName'
-    method: 'GET'
-    urlSuffix: 'http://ec2-35-92-254-43.us-west-2.compute.amazonaws.com:8080/job/pipeline-testing/build?token=jenkins-pipeline-testing'
-    waitForCompletion: 'false'
+  - script: |
+      npm run build
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'build'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+    displayName: 'npm run build'
